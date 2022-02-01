@@ -8,10 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var users = [User]()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List {
+                ForEach(users) { user in
+                    Text(user.name)
+                    
+                }
+            }
+            .task {
+                await loadData()
+            }
+        }
     }
+    
+    func loadData() async {
+        guard let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json") else {
+            print("Invalid URL")
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedResponse = try JSONDecoder().decode([User].self, from: data)
+            users = decodedResponse
+        } catch let error as NSError {
+            print("loadData() Error: \(error)")
+        }
+    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
