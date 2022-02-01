@@ -13,16 +13,19 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(users) { user in
-                    VStack(alignment: .leading) {
+                    NavigationLink(destination: UserDetails()) {
                         HStack {
-                            Text(user.name)
-                            Spacer()
-                            Text(user.isActive ? "Online" : "Offline")
-                                .foregroundColor(user.isActive ? .blue : .red)
+                            VStack(alignment: .leading) {
+                                Text(user.name)
+                                Text(user.email)
+                                    .foregroundColor(.secondary)
+                                    .font(.system(size: 12))
+                            }
+                                Spacer()
+                                Text(user.isActive ? "Online" : "Offline")
+                                    .foregroundColor(user.isActive ? .blue : .red)
+                            
                         }
-                        Text(user.email)
-                            .foregroundColor(.secondary)
-                        
                     }
                 }
             }
