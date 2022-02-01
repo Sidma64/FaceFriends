@@ -13,8 +13,15 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(users) { user in
-                    Text(user.name)
-                    
+                    VStack {
+                        HStack {
+                            Text(user.name)
+                            Spacer()
+                            Text(user.isActive ? "Online" : "Offline")
+                                .foregroundColor(user.isActive ? .blue : .red)
+                        }
+                        
+                    }
                 }
             }
             .task {
