@@ -18,6 +18,7 @@ struct UserDetails: View {
                     Text(chosenUser.about)
                 }
                 .padding(.horizontal)
+                
                 Divider()
                 Text("Info").font(.title).padding(.bottom)
                 VStack(alignment: .leading) {
@@ -26,12 +27,19 @@ struct UserDetails: View {
                     Text("Company: \(chosenUser.company)")
                     Text("Age: \(String(chosenUser.age))")
                 }
+                .padding(.horizontal)
+                
                 Divider()
                 Text("Friends").font(.title).padding(.bottom)
-                List {
-                    
+                VStack {
+                    ForEach(chosenUser.friends) { friend in
+                        HStack {
+                            Text(friend.name)
+                            Spacer()
+                        }
+                    }
                 }
-                
+                .padding(.horizontal)
             }
             .navigationTitle(chosenUser.name)
         }

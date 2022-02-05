@@ -11,24 +11,7 @@ struct ContentView: View {
     @State var users = [User]()
     var body: some View {
         NavigationView {
-            List {
-                ForEach(users) { user in
-                    NavigationLink(destination: UserDetails(users: users, chosenUser: user)) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(user.name)
-                                Text(user.email)
-                                    .foregroundColor(.secondary)
-                                    .font(.system(size: 12))
-                            }
-                                Spacer()
-                                Text(user.isActive ? "Online" : "Offline")
-                                    .foregroundColor(user.isActive ? .blue : .red)
-                            
-                        }
-                    }
-                }
-            }
+            UsersListView(users: users)
             .navigationTitle("FaceFriends")
             .task {
                 await loadData()
@@ -51,6 +34,28 @@ struct ContentView: View {
         }
     }
 
+}
+
+struct UsersListView: View {
+    var users: [User]
+    var body: some View {
+        List(users) { user in
+            NavigationLink(destination: UserDetails(users: users, chosenUser: user)) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(user.name)
+                        Text(user.email)
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 12))
+                    }
+                        Spacer()
+                        Text(user.isActive ? "Online" : "Offline")
+                            .foregroundColor(user.isActive ? .blue : .red)
+                    
+                }
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
