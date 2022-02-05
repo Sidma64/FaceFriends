@@ -8,15 +8,32 @@
 import SwiftUI
 
 struct UserDetails: View {
+    let users: [User]
+    let chosenUser: User
     var body: some View {
-        NavigationView {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack {
+                Text("About").font(.title).padding(.bottom)
+                HStack {
+                    Text(chosenUser.about)
+                }
+                .padding(.horizontal)
+                Divider()
+                Text("Info").font(.title).padding(.bottom)
+                VStack(alignment: .leading) {
+                    Text("E-Mail: \(chosenUser.email)")
+                    Text("Registered Date: \(chosenUser.registered)")
+                    Text("Company: \(chosenUser.company)")
+                    Text("Age: \(String(chosenUser.age))")
+                }
+                Divider()
+                Text("Friends").font(.title).padding(.bottom)
+                List {
+                    
+                }
+                
+            }
+            .navigationTitle(chosenUser.name)
         }
-    }
-}
-
-struct UserDetails_Previews: PreviewProvider {
-    static var previews: some View {
-        UserDetails()
     }
 }

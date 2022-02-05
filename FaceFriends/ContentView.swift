@@ -13,7 +13,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(users) { user in
-                    NavigationLink(destination: UserDetails()) {
+                    NavigationLink(destination: UserDetails(users: users, chosenUser: user)) {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(user.name)
@@ -29,6 +29,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .navigationTitle("FaceFriends")
             .task {
                 await loadData()
             }
